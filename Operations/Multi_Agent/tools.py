@@ -1,4 +1,5 @@
 import os
+import shutil
 
 # This helper finds the "Home" folder automatically (e.g., /Users/dave on Mac)
 HOME = os.path.expanduser("~")
@@ -28,3 +29,9 @@ def fetch_file(path=None):
         return f"File not found at: {path}"
     except Exception as e:
         return f"Could not read file: {e}"
+
+def fetch_disk_size(path=HOME):
+    try:
+        return shutil.disk_usage(path)
+    except Exception as e:
+        return f"Error fetching disk size: {e}"

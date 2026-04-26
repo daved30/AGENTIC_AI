@@ -28,6 +28,11 @@ def executor_agent(plan: dict):
         # fetch_file only takes 'path'
         tool_params = {k: v for k, v in params.items() if k == "path"}
         result = tools.fetch_file(**tool_params)
+        
+    elif action == "fetch_disk_size":
+        # fetch_disk_size takes 'path'
+        tool_params = {k: v for k, v in params.items() if k == 'path'}
+        result = tools.fetch_disk_size(**tool_params)
 
     else:
         result = "I couldn't find a valid action to perform."

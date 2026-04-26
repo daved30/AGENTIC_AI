@@ -16,7 +16,7 @@ def plan_task(plan_prompt: str):
 
     Respond ONLY with a JSON object in this format:
     {{
-        "action": "one of [list_resumes, count_files, fetch_file, none]",
+        "action": "one of [list_resumes, count_files, fetch_file, fetch_disk_size, none]",
         "params": {{
             "path": "the folder or file path if mentioned, else null",
             "extension": "the file extension if mentioned, else null"
