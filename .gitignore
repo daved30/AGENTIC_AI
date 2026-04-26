@@ -5,3 +5,4 @@ __pycache__/
 .env
 utils/
 __init__.py
+.venv/

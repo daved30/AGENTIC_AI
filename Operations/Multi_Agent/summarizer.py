@@ -9,7 +9,7 @@ llm = ChatOllama(model=ollama_model)
 print("Model:", ollama_model)
 
 def summarizer_agent(executor_outputs: list):
-    combined = "\n".join([json.dumps(o, indent=2) for o in executor_outputs])
+    combined = "\n".join([f"Tool Data: {o['raw_result']}\nExplanation: {o['final_output']}" for o in executor_outputs])
     prompt = f"""
     You are a Summarizer agent.
     Here are the results from other agents:

@@ -1,29 +1,33 @@
-import planner, executor
+import planner
+import executor
+import summarizer
 from pprint import pformat
 
 def ppfy(obj):
     return pformat(obj)
-    
-import planner, executor, summarizer
 
 if __name__ == "__main__":
-    # user_prompt = "Fetch file C:/Users/xyz/Downloads/test.pdf and count resumes."
-    user_prompt = input("Enter the prompt: ")
+    print("--- Agentic System Started ---")
+    user_prompt = input("What can I help you with? ")
 
-    # Planner decides
-    plan = planner.plan_task(user_prompt)
-    print(type(plan))
-    print("Planner decided:", ppfy(plan))
-    del planner
+    # 1. Planner
+    try:
+        plan = planner.plan_task(user_prompt)
+        print(f"\n[Planner] Action: {plan.get('action')}")
+    except Exception as e:
+        print(f"Planner Error: {e}")
+        plan = {"action": "none"}
 
-    # Executor runs
+    # 2. Executor
+    print("[Executor] Running tool...")
     exec_output = executor.executor_agent(plan)
-    print(type(exec_output))
-    print("Executor output:", ppfy(exec_output["final_output"]))
-    del executor
+    print(f"[Executor] Result: {exec_output['final_output']}")
 
-    # Summarizer compiles
-    summary = summarizer.summarizer_agent([exec_output])
-    print(type(summary))
-    print("Summarizer says:", ppfy(summary))
-    del summarizer
+    # 3. Summarizer
+    print("[Summarizer] Compiling final answer...")
+    final_summary = summarizer.summarizer_agent([exec_output])
+    
+    print("\n" + "="*30)
+    print("FINAL ANSWER:")
+    print(final_summary)
+    print("="*30)
